@@ -5,6 +5,7 @@
 // HERE 
 #include "G4NistManager.hh"
 
+using namespace CLHEP;
 
 int main() {
   
@@ -26,17 +27,32 @@ int main() {
     G4cout << " nothing: " << matName << G4endl;
   }
   
-  G4Element* elC = new G4Element(name="Carbon", symbol="C", z=6., a=12.01*g/mole);
+  G4Element* elC = new G4Element("Carbon", "C", 6., 12.01*g/mole);
+  G4cout << elC << G4endl;
   
-//  // create the isotopes: iz = number of protons and n=number of nucleons 
-//  G4Isotope* U5 = new G4Isotope(name="U235", iz=92, n=235); 
-//  G4Isotope* U8 = new G4Isotope(name="U238", iz=92, n=238); 
-//  
-//  // create the element and build up by adding the isotopes with their abundance:  
-//  G4Element* elU = new G4Element(name="Enriched Uranium", symbol="U", numisotopes=2); 
-//  elU->AddIsotope(U5,abundance=90.*perCent); 
-//  elU->AddIsotope(U8,abundance=10.*perCent); 
+  // create the isotopes: iz = number of protons and n=number of nucleons 
+  G4Isotope* U5 = new G4Isotope("U235", 92, 235); 
+  G4Isotope* U8 = new G4Isotope("U238", 92, 238); 
+
+  // create the element and build up by adding the isotopes with their abundance:  
+  G4Element* elU = new G4Element("Enriched Uranium", "U", 2); 
+  elU->AddIsotope(U5, 90.*perCent); 
+  elU->AddIsotope(U8, 10.*perCent);
+  
+  G4cout << elU << G4endl;
+  
+  G4Material* matU = new G4Material("Uranium", 92, 238.03*g/mole, 18.950*g/cm3); 
+  G4cout << matU << G4endl;
   
   
+  G4NistManager* nistMGR = G4NistManager::Instance(); 
+  // get the pre-defined liquid argon (“G4_lAr”) from the NIST DB 
+  G4Material* matLAr = nistMGR->FindOrBuildMaterial("G4_lAr"); 
+
+  // get the pre-defined concrete (“G4_CONCRETE”) from the NIST DB 
+  G4Material* matConcr = nistMGR->FindOrBuildMaterial("G4_CONCRETE"); 
+
+  G4cout << matLAr << G4endl;
+  G4cout << matConcr << G4endl;
   return 0;
 }
