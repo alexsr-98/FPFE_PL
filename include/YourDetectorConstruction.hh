@@ -1,4 +1,3 @@
-
 #ifndef YOURDETECTORCONSTRUCTION_HH
 #define YOURDETECTORCONSTRUCTION_HH
 
@@ -13,7 +12,9 @@ public:
   
   virtual G4VPhysicalVolume* Construct();
   
-  
+  G4double GetGunXPosition(){
+  return 0.0;
+  };
   
 private:
   
