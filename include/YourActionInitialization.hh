@@ -2,7 +2,7 @@
 #define YOURACTIONINITIALIZATION_HH 
 
 #include "G4VUserActionInitialization.hh" 
-
+#include "globals.hh"
  
 // forward declarations 
 class YourDetectorConstruction; 

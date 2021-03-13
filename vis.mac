@@ -1,0 +1,34 @@
+# Initialize kernel
+/run/initialize
+/control/verbose 2
+/event/verbose 0
+/tracking/verbose 1
+
+#/vis/scene/create
+
+# Visualization setting
+# Use this open statement to create an OpenGL view: 
+/vis/open OGL 1200x600-0+0
+
+
+# Draw the geometry 
+/vis/drawVolume 
+
+# Set the World volume invisible 
+/vis/geometry/set/visibility logic-World 0  false 
+/vis/geometry/set/colour logic-Target 0 0 0 255 0.3 
+/vis/viewer/set/style surface 
+
+# Add axes (orientation) and a scale (size) 
+/vis/scene/add/axes 
+/vis/scene/add/scale 
+
+# Add (smooth) trajectories 
+/vis/scene/add/trajectories smooth 
+
+# Set to accumulate trajectories up to 100 events 
+/vis/scene/endOfEventAction accumulate 10
+
+#/vis/viewer/set/viewpointThetaPhi 25 0
+
+/run/beamOn 100

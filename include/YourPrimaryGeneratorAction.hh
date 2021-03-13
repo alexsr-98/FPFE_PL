@@ -2,19 +2,21 @@
 #define YOURPRIMARYGENERATORACTION_HH 
 
 #include "G4VUserPrimaryGeneratorAction.hh" 
-#include "YourDetectorConstruction.hh"
-#include "G4Event.hh"
-#include "G4ParticleGun.hh"
- 
 
 
+#include "globals.hh"
+
+class YourDetectorConstruction;
+class G4ParticleGun;
+class G4Event;
+class G4String;
 
 class YourPrimaryGeneratorAction : public G4VUserPrimaryGeneratorAction { 
 
 public: 
 
-   YourPrimaryGeneratorAction(); 
-   ~YourPrimaryGeneratorAction(); 
+   YourPrimaryGeneratorAction(YourDetectorConstruction* det); 
+   virtual ~YourPrimaryGeneratorAction(); 
 
  
   virtual void GeneratePrimaries(G4Event*); 
@@ -37,7 +39,7 @@ public:
  
  
 private: 
-   G4ParticleGun*  fParticleGun; // pointer a to G4 gun class
+   G4ParticleGun*  fParticleGun; // pointer to a G4 gun class
    YourDetectorConstruction* fYourDetector; 
 
 };

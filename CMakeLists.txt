@@ -2,7 +2,11 @@
 cmake_minimum_required(VERSION 2.6 FATAL_ERROR)
 project(yourG4application)
 
-find_package(Geant4 REQUIRED)
+#No UI and visualization
+#find_package(Geant4 REQUIRED)
+
+#Visualization drivers
+find_package(Geant4 REQUIRED ui_all vis_all)
 
 include(${Geant4_USE_FILE})
 include_directories(${PROJECT_SOURCE_DIR}/include)

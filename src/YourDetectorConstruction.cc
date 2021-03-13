@@ -7,25 +7,37 @@
 #include "G4LogicalVolume.hh"
 #include "G4VPhysicalVolume.hh"
 #include "G4PVPlacement.hh"
+#include "globals.hh"
+
+// for having units and constants
+#include "G4PhysicalConstants.hh"
+#include "G4SystemOfUnits.hh"
 
 YourDetectorConstruction::YourDetectorConstruction() 
-: G4VUserDetectorConstruction() {
+: G4VUserDetectorConstruction(), fTargetMaterial(nullptr), 
+    fTargetPhysicalVolume(nullptr) {
   // set default target material
-  G4String matName = "G4_Si";
-  fTargetMaterial  = G4NistManager::Instance()->FindOrBuildMaterial(matName);
-  if (fTargetMaterial == nullptr) {
-    G4cerr << "  ERROR YourDetectorConstruction() \n" 
-           << "  Material with name " << matName << " was not found! \n"
-           << G4endl;
-  }
+  SetTargetMaterial("G4_Pb");
+  
   // set default target thickness
   fTargetThickness = 1.0*CLHEP::cm;
-  
-
-    
+  fGunXPosition = -3.0*fTargetThickness;
 }
 
 YourDetectorConstruction::~YourDetectorConstruction() {}
+
+
+//void YourDetectorConstruction::SetTargetMaterial(const G4String& matName) {
+//    // try to find the material in the NIST DB
+//    fTargetMaterial  = G4NistManager::Instance()->FindOrBuildMaterial(matName);
+//  if (fTargetMaterial == nullptr) {
+//    G4cerr << "  ERROR YourDetectorConstruction() \n" 
+//           << "  Material with name " << matName << " was not found! \n"
+//           << G4endl;
+//  }
+//}
+
+
 
 
 G4VPhysicalVolume* YourDetectorConstruction::Construct() {
@@ -39,9 +51,9 @@ G4VPhysicalVolume* YourDetectorConstruction::Construct() {
   
   
   //-----WORLD-------
-  G4double worldXSize = fTargetThickness * 4;
-  G4double worldYSize = fTargetThickness * 4;
-  G4double worldZSize = fTargetThickness * 4;
+  G4double worldXSize = fTargetThickness * 8;
+  G4double worldYSize = fTargetThickness * 8;
+  G4double worldZSize = fTargetThickness * 8;
   
   
   G4Box* worldSolid = new G4Box( "solid-World",   // name 
@@ -67,8 +79,8 @@ G4VPhysicalVolume* YourDetectorConstruction::Construct() {
   
   //-----TARGET------
   G4double targetXSize = fTargetThickness;
-  G4double targetYSize = fTargetThickness;
-  G4double targetZSize = fTargetThickness;
+  G4double targetYSize = 3*fTargetThickness;
+  G4double targetZSize = 3*fTargetThickness;
   
   G4Box* targetSolid = new G4Box( "solid-target",   // name 
                                 0.5*targetXSize,  // box half x-size 
@@ -78,7 +90,7 @@ G4VPhysicalVolume* YourDetectorConstruction::Construct() {
 
   G4LogicalVolume* targetLogical = new G4LogicalVolume( targetSolid,    // solid 
                                                      fTargetMaterial, // material 
-                                                    "logic-target"  // name 
+                                                    "logic-Target"  // name 
                                                      );
                                                      
   G4VPhysicalVolume* targetPhysical = new G4PVPlacement( nullptr,                    // (no) rotation 
@@ -91,5 +103,6 @@ G4VPhysicalVolume* YourDetectorConstruction::Construct() {
                                                       );
   //-----TARGET------
   
-  return 0;
+  fTargetPhysicalVolume = targetPhysical;
+  return worldPhysical;
 }

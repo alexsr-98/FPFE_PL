@@ -1,16 +1,14 @@
 #include "YourActionInitialization.hh" 
 #include "YourPrimaryGeneratorAction.hh" 
 #include "YourDetectorConstruction.hh" 
-
+#include "globals.hh"
  
 
 YourActionInitialization::YourActionInitialization(YourDetectorConstruction* det) 
-:   G4VUserActionInitialization(), 
-    fYourDetector(det) { } 
+:   G4VUserActionInitialization(){
+    fYourDetector = det;  
+    }
 
-     
-
- 
 
 YourActionInitialization::~YourActionInitialization() {} 
 
@@ -24,7 +22,7 @@ YourActionInitialization::~YourActionInitialization() {}
 void YourActionInitialization::Build() const { 
 
   // Set UserPrimaryGeneratorAction 
-  YourPrimaryGeneratorAction* primaryAction = new YourPrimaryGeneratorAction(); 
+  YourPrimaryGeneratorAction* primaryAction = new YourPrimaryGeneratorAction(fYourDetector); 
   SetUserAction(primaryAction); 
 //  // Set UserRunAction 
 //  YourRunAction* runAction = new YourRunAction(primaryAction); 
