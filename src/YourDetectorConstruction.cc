@@ -8,6 +8,7 @@
 #include "G4VPhysicalVolume.hh"
 #include "G4PVPlacement.hh"
 #include "globals.hh"
+#include "YourDetectorMessenger.hh"
 
 // for having units and constants
 #include "G4PhysicalConstants.hh"
@@ -17,27 +18,17 @@ YourDetectorConstruction::YourDetectorConstruction()
 : G4VUserDetectorConstruction(), fTargetMaterial(nullptr), 
     fTargetPhysicalVolume(nullptr) {
   // set default target material
-  SetTargetMaterial("G4_Pb");
+  SetTargetMaterial("G4_Si");
   
   // set default target thickness
   fTargetThickness = 1.0*CLHEP::cm;
   fGunXPosition = -3.0*fTargetThickness;
+  fDetMessenger    = new YourDetectorMessenger(this); 
 }
 
-YourDetectorConstruction::~YourDetectorConstruction() {}
-
-
-//void YourDetectorConstruction::SetTargetMaterial(const G4String& matName) {
-//    // try to find the material in the NIST DB
-//    fTargetMaterial  = G4NistManager::Instance()->FindOrBuildMaterial(matName);
-//  if (fTargetMaterial == nullptr) {
-//    G4cerr << "  ERROR YourDetectorConstruction() \n" 
-//           << "  Material with name " << matName << " was not found! \n"
-//           << G4endl;
-//  }
-//}
-
-
+YourDetectorConstruction::~YourDetectorConstruction() {
+delete fDetMessenger;
+}
 
 
 G4VPhysicalVolume* YourDetectorConstruction::Construct() {

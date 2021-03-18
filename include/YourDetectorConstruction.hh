@@ -5,6 +5,7 @@
 #include "globals.hh"
 #include "G4NistManager.hh"
 
+class YourDetectorMessenger;
 class G4Material;
 
 class YourDetectorConstruction : public G4VUserDetectorConstruction {
@@ -52,6 +53,8 @@ private:
   G4double    fGunXPosition;
   G4double    fTargetThickness;
   G4VPhysicalVolume*     fTargetPhysicalVolume;
+  // The detector messenger pointer
+  YourDetectorMessenger* fDetMessenger;
 };
 
 #endif
