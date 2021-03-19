@@ -22,8 +22,7 @@ YourDetectorConstruction::YourDetectorConstruction()
   
   // set default target thickness
   fTargetThickness = 1.0*CLHEP::cm;
-  fGunXPosition = -3.0*fTargetThickness;
-  fDetMessenger    = new YourDetectorMessenger(this); 
+  fDetMessenger    = new YourDetectorMessenger(this);
 }
 
 YourDetectorConstruction::~YourDetectorConstruction() {
@@ -72,7 +71,7 @@ G4VPhysicalVolume* YourDetectorConstruction::Construct() {
   G4double targetXSize = fTargetThickness;
   G4double targetYSize = 3*fTargetThickness;
   G4double targetZSize = 3*fTargetThickness;
-  
+  fGunXPosition = -3.0*fTargetThickness; 
   G4Box* targetSolid = new G4Box( "solid-target",   // name 
                                 0.5*targetXSize,  // box half x-size 
                                 0.5*targetYSize, // box half y-size 

@@ -30,7 +30,7 @@ class YourDetectorMessenger : public G4UImessenger {
     G4UIdirectory*             fDirCMD;
     G4UIcmdWithADoubleAndUnit* fTargetThicknessCMD;
     G4UIcmdWithAString*        fTargetMaterialCMD;
-//------------------------------INCLUIR MAS COSAS COMO POR EJEMPLO EL TIPO DE PARTICULA Y SU ENERGIA--------------------
+
 };
 
 #endif

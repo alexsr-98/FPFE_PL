@@ -72,3 +72,7 @@ int main(int argc, char** argv){
   
   return 0;
 }
+
+
+// Sugerencias para ampliacion: poner campo magnetico, crear un detector un poco mas complejo
+
