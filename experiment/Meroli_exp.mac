@@ -1,0 +1,13 @@
+/yourApp/det/setTargetMaterial G4_Si
+/yourApp/det/setTargetThickness 5.6 um
+
+/gun/particle e-
+/gun/energy 100 MeV
+
+# Initialize kernel
+/run/initialize
+/run/setCut 1.0 um
+
+/run/printProgress 100000
+/run/beamOn 1000000
+
